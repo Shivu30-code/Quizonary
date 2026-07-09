@@ -41,9 +41,19 @@ const Register = () => {
 
     navigate("/verify-otp");
 
-  } catch (error) {
-    alert(error.response?.data?.message || "Something went wrong");
-  }
+  } 
+  // catch (error) {
+  //   alert(error.response?.data?.message || "Something went wrong");
+  // }
+  catch (error) {
+  console.log(error);
+
+  alert(
+    error.response?.data?.message ||
+    error.message ||
+    "Unknown Error"
+  );
+}
 };
 
   return (
