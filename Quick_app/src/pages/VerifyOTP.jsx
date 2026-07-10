@@ -84,16 +84,16 @@ const VerifyOTP = () => {
 
   try {
 
-    const mobile = localStorage.getItem("mobile");
+    const email = localStorage.getItem("email");
 
     const res = await API.post("/auth/verify-otp", {
-      mobile,
+      email,
       otp: enteredOtp,
     });
 
     alert(res.data.message);
 
-    localStorage.removeItem("mobile");
+    localStorage.removeItem("email");
 
     navigate("/login");
 
@@ -113,6 +113,7 @@ const VerifyOTP = () => {
 
     const res = await API.post("/auth/resend-otp", {
       email,
+      otp: enteredOtp,
     });
 
     alert(res.data.message);
@@ -124,8 +125,9 @@ const VerifyOTP = () => {
     alert(error.response?.data?.message);
 
   }
-
 };
+
+
   return (
     <div className="relative min-h-screen bg-[#050816] overflow-hidden">
 

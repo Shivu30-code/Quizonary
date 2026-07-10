@@ -3,6 +3,9 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes.js";
+import helmet from "helmet";
+import compression from "compression";
+import rateLimit from "express-rate-limit";
 
 
 dotenv.config();
@@ -12,7 +15,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(helmet());
+app.use(compression());
 app.use((req, res, next) => {
   const body = { ...req.body };
 
@@ -33,6 +37,12 @@ app.use((req, res, next) => {
 
   next();
 });
+const limiter = rateLimit({
+    windowMs: 60 * 1000,
+    max: 10
+});
+
+app.use("/api/auth", limiter);
 
 mongoose
   .connect(process.env.MONGO_URL)
