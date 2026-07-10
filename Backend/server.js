@@ -12,10 +12,25 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 app.use((req, res, next) => {
+  const body = { ...req.body };
+
+  if (body.password) {
+    body.password = "********";
+  }
+
+  if (body.confirmPassword) {
+    body.confirmPassword = "********";
+  }
+
+  if (body.otp) {
+    body.otp = "******";
+  }
+
   console.log("Method:", req.method);
-  console.log("Content-Type:", req.headers["content-type"]);
-  console.log("Body:", req.body);
+  console.log("Body:", body);
+
   next();
 });
 

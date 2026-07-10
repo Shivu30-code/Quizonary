@@ -6,7 +6,8 @@ import validator from "validator";
 import jwt from "jsonwebtoken";
 
 import generateOTP from "../utils/generateOTP.js";
-import sendOTP from "../utils/sendOTP.js";
+// import sendOTP from "../utils/sendOTP.js";
+import sendOTP from "../utils/sendEmailOTP.js";
 
 /* ===========================
    REGISTER
@@ -102,17 +103,17 @@ if (existingMobile) {
     });
     console.log("Step 6 User Created");
 
-    await OTP.deleteMany({ mobile });
+    await OTP.deleteMany({ email });
 
     const otp = generateOTP();
 
     await OTP.create({
-      mobile,
+      email,
       otp,
       expiresAt: new Date(Date.now() + 5 * 60 * 1000),
     });
     console.log("Step 7 OTP Saved");
-    await sendOTP(mobile, otp);
+    await sendOTP(email, otp);
     console.log("Step 8 OTP Sent");
     return res.status(201).json({
       success: true,
@@ -140,16 +141,16 @@ export const verifyOTP = async (req, res) => {
 
   try {
 
-    const { mobile, otp } = req.body;
+    const { email, otp } = req.body;
 
-    if (!mobile || !otp) {
+    if (!email || !otp) {
       return res.status(400).json({
         success: false,
-        message: "Mobile and OTP are required",
+        message: "Email and OTP are required",
       });
     }
 
-    const otpData = await OTP.findOne({ mobile, otp });
+    const otpData = await OTP.findOne({ email, otp });
 
     if (!otpData) {
       return res.status(400).json({
@@ -170,13 +171,13 @@ export const verifyOTP = async (req, res) => {
     }
 
     await User.findOneAndUpdate(
-      { mobile },
+      { email },
       {
         isVerified: true,
       }
     );
 
-    await OTP.deleteMany({ mobile });
+    await OTP.deleteMany({ email });
 
     return res.status(200).json({
       success: true,
@@ -204,16 +205,16 @@ export const resendOTP = async (req, res) => {
 
   try {
 
-    const { mobile } = req.body;
+    const { email } = req.body;
 
-    if (!mobile) {
+    if (!email) {
       return res.status(400).json({
         success: false,
-        message: "Mobile is required",
+        message: "Email is required",
       });
     }
 
-    const user = await User.findOne({ mobile });
+    const user = await User.findOne({ email });
 
     if (!user) {
       return res.status(404).json({
@@ -222,17 +223,17 @@ export const resendOTP = async (req, res) => {
       });
     }
 
-    await OTP.deleteMany({ mobile });
+    await OTP.deleteMany({ email });
 
     const otp = generateOTP();
 
     await OTP.create({
-      mobile,
+      email,
       otp,
       expiresAt: new Date(Date.now() + 5 * 60 * 1000),
     });
 
-    await sendOTP(mobile, otp);
+    await sendOTP(email, otp);
 
     return res.status(200).json({
       success: true,

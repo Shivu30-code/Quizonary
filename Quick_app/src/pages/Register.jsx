@@ -37,7 +37,7 @@ const Register = () => {
 
     alert(res.data.message);
 
-    localStorage.setItem("mobile", data.mobile);
+    localStorage.setItem("email", data.email);
 
     navigate("/verify-otp");
 

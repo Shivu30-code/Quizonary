@@ -109,10 +109,10 @@ const VerifyOTP = () => {
 
   try {
 
-    const mobile = localStorage.getItem("mobile");
+    const email = localStorage.getItem("email");
 
     const res = await API.post("/auth/resend-otp", {
-      mobile,
+      email,
     });
 
     alert(res.data.message);
