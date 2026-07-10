@@ -20,7 +20,7 @@ transporter.verify((err, success) => {
   }
 });
 
-const info = async (email, otp) => {
+const sendOTP = async (email, otp) => {
   try {
     await transporter.sendMail({
       from: `"Quizonary" <${process.env.EMAIL_USER}>`,
@@ -63,7 +63,7 @@ const info = async (email, otp) => {
       </div>
       `,
     });
-    console.log("Mail Sent:", info.response)
+    console.log("Mail Sent:", sendOTP.response)
 
     return true;
   } catch (err) {
