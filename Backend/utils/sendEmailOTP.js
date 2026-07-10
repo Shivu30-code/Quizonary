@@ -3,9 +3,9 @@ import nodemailer from "nodemailer";
 
 
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
+  host: "smtp-relay.brevo.com",
   port: 587,
-  secure: false, // 587 ke liye false
+  secure: false,
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
@@ -23,7 +23,7 @@ transporter.verify((err, success) => {
 const sendOTP = async (email, otp) => {
   try {
     await transporter.sendMail({
-      from: `"Quizonary" <${process.env.EMAIL_USER}>`,
+      from: `"Quizonary" <${process.env.SENDER_EMAIL}>`,
       to: email,
       subject: "Quizonary Email Verification OTP",
 
