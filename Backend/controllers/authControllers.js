@@ -391,18 +391,18 @@ export const register = async (req, res) => {
     });
 
     // Send Email
-    const sent = await sendOTP(email, otp);
+    const mailSent = await sendOTP(email, otp);
 
-console.log("OTP Sent :", sent);
+    console.log("OTP Sent :", mailSent);
 
-if (!sent) {
+    if (!mailSent) {
 
-    return res.status(500).json({
-        success:false,
-        message:"Email not sent"
-    });
+        return res.status(500).json({
+            success:false,
+            message:"Email not sent"
+        });
 
-}
+    }
     return res.status(200).json({
       success: true,
       message: "OTP sent successfully",
