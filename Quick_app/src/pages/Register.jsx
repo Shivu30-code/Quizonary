@@ -63,7 +63,7 @@ const Register = () => {
     setLoading(false);
 
   }
-};
+
 };
 
   return (
