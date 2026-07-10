@@ -9,8 +9,10 @@ import {
   Star,
   Medal,
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const WelcomeHome = () => {
+  const navigate = useNavigate();
   return (
     <section
       id="home"
@@ -55,7 +57,9 @@ const WelcomeHome = () => {
 
             <div className="flex flex-wrap gap-5 mt-10">
 
-              <button className="bg-gradient-to-r from-purple-600 to-blue-600 px-8 py-4 rounded-2xl font-semibold flex items-center gap-2 hover:scale-105 duration-300 shadow-2xl shadow-purple-900/40">
+              <button 
+                onClick={() => navigate("/login")}
+                className="bg-gradient-to-r from-purple-600 to-blue-600 px-8 py-4 rounded-2xl font-semibold flex items-center gap-2 hover:scale-105 duration-300 shadow-2xl shadow-purple-900/40">
                 Join Live Quiz
 
                 <ArrowRight />

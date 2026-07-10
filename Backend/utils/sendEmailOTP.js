@@ -1,25 +1,37 @@
 import nodemailer from "nodemailer";
 
+
+
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false, // 587 ke liye false
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
 });
 
-const sendOTP = async (email, otp) => {
+transporter.verify((err, success) => {
+  if (err) {
+    console.log("SMTP Error:", err);
+  } else {
+    console.log("SMTP Connected");
+  }
+});
+
+const info = async (email, otp) => {
   try {
     await transporter.sendMail({
-      from: `"QuickQuiz" <${process.env.EMAIL_USER}>`,
+      from: `"Quizonary" <${process.env.EMAIL_USER}>`,
       to: email,
-      subject: "QuickQuiz Email Verification OTP",
+      subject: "Quizonary Email Verification OTP",
 
       html: `
       <div style="max-width:600px;margin:auto;font-family:Arial;padding:30px;background:#0f172a;color:white;border-radius:12px">
 
       <h1 style="text-align:center;color:#a855f7">
-      QuickQuiz
+      Quizonary
       </h1>
 
       <h2>Email Verification</h2>
@@ -51,13 +63,14 @@ const sendOTP = async (email, otp) => {
       </div>
       `,
     });
+    console.log("Mail Sent:", info.response)
 
     return true;
   } catch (err) {
-    console.log("Mail Error");
-
-console.log(err);
-  }
+  console.log("Mail Error:");
+  console.log(err);
+  return false;
+}
 };
 
 export default sendOTP;
