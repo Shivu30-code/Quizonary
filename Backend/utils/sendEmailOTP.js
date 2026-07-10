@@ -12,21 +12,21 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-transporter.verify((err, success) => {
-  if (err) {
-    console.log("SMTP Error:", err);
+transporter.verify(function(error, success){
+  if (error) {
+    console.log("SMTP Error:");
+    console.log(error);
   } else {
     console.log("SMTP Connected");
   }
 });
-
 const sendOTP = async (email, otp) => {
   try {
-    await transporter.sendMail({
+
+    const info = await transporter.sendMail({
       from: `"Quizonary" <${process.env.SENDER_EMAIL}>`,
       to: email,
       subject: "Quizonary Email Verification OTP",
-
       html: `
       <div style="max-width:600px;margin:auto;font-family:Arial;padding:30px;background:#0f172a;color:white;border-radius:12px">
 
@@ -63,7 +63,7 @@ const sendOTP = async (email, otp) => {
       </div>
       `,
     });
-    console.log("Mail Sent:", sendOTP.response)
+    console.log("Mail Sent:", info.response)
 
     return true;
   } catch (err) {
