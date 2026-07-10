@@ -21,6 +21,7 @@ import navBg from "../assets/navBg.png";
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const {
     register,
@@ -32,7 +33,13 @@ const Register = () => {
   const password = watch("password");
 
   const onSubmit = async (data) => {
+
+  if (loading) return;
+
+  setLoading(true);
+
   try {
+
     const res = await API.post("/auth/register", data);
 
     alert(res.data.message);
@@ -41,19 +48,22 @@ const Register = () => {
 
     navigate("/verify-otp");
 
-  } 
-  // catch (error) {
-  //   alert(error.response?.data?.message || "Something went wrong");
-  // }
-  catch (error) {
-  console.log(error);
+  } catch (error) {
 
-  alert(
-    error.response?.data?.message ||
-    error.message ||
-    "Unknown Error"
-  );
-}
+    console.log(error);
+
+    alert(
+      error.response?.data?.message ||
+      error.message ||
+      "Something went wrong"
+    );
+
+  } finally {
+
+    setLoading(false);
+
+  }
+};
 };
 
   return (
@@ -276,12 +286,14 @@ const Register = () => {
             </label>
 
             <button
+              type="submit"
+              disabled={loading}
               className="w-full rounded-xl bg-gradient-to-r from-purple-600 via-violet-600 to-blue-600 py-3.5 sm:py-4
               text-white font-semibold flex justify-center items-center gap-2 hover:shadow-[0_0_30px_rgba(168,85,247,.5)]
               hover:-translate-y-1 transition-all duration-300"
             >
 
-              Create Account
+               {loading ? "Creating..." : "Create Account"}
 
               <ArrowRight size={20} />
 
