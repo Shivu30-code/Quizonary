@@ -179,7 +179,7 @@ if (otpData.otp !== otp) {
     }
 
     // Create User AFTER OTP Verification
-    await User.create({
+    const user = await User.create({
       fullName: otpData.fullName,
       email: otpData.email,
       mobile: otpData.mobile,

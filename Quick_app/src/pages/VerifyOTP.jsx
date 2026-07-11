@@ -97,7 +97,7 @@ const VerifyOTP = () => {
     localStorage.removeItem("email");
 
     navigate("/dashboard");
-    
+
   } catch (error) {
 
     alert(error.response?.data?.message);
@@ -182,7 +182,7 @@ const VerifyOTP = () => {
           </h1>
 
           <p className="text-center text-gray-300 mt-2">
-            Enter the 6 digit OTP sent to your mobile number.
+            Enter the 6 digit OTP sent to your Email .
           </p>
 
           <div
