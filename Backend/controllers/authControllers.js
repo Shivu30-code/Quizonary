@@ -716,3 +716,109 @@ export const forgotPassword = async (req, res) => {
 
   }
 };
+
+export const verifyForgotOTP = async (req, res) => {
+  try {
+
+    const { email, otp } = req.body;
+
+    if (!email || !otp) {
+      return res.status(400).json({
+        success: false,
+        message: "Email and OTP are required",
+      });
+    }
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    if (user.resetOTP !== otp) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid OTP",
+      });
+    }
+
+    if (new Date(user.resetOTPExpire) < new Date()) {
+      return res.status(400).json({
+        success: false,
+        message: "OTP Expired",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "OTP Verified Successfully",
+    });
+
+  } catch (error) {
+
+    console.log(error);
+
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+
+  }
+};
+
+export const resetPassword = async (req, res) => {
+  try {
+
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: "Email and Password are required",
+      });
+    }
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    if (!user.resetOTP) {
+      return res.status(400).json({
+        success: false,
+        message: "Please verify OTP first",
+      });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    user.password = hashedPassword;
+
+    user.resetOTP = "";
+    user.resetOTPExpire = null;
+
+    await user.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Password Updated Successfully",
+    });
+
+  } catch (error) {
+
+    console.log(error);
+
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+
+  }
+};

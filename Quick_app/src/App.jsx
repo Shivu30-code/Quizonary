@@ -10,6 +10,8 @@ import Register from "./pages/Register";
 import VerifyOTP from "./pages/VerifyOTP";
 import Dashboard from "./pages/Dashboard";
 import ForgotPassword from "./pages/ForgotPassword";
+import VerifyForgotOTP from "./pages/VerifyForgotOTP";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/verify-otp" element={<VerifyOTP />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/verify-forgot-otp" element={<VerifyForgotOTP />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
 
 
       <Route element={<MainLayout />}>
