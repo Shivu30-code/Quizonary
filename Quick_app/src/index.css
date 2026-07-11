@@ -1,4 +1,22 @@
 @import "tailwindcss";
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: #ffffff !important;
 
-    
+  -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.08) inset !important;
+
+  box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.08) inset !important;
+
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+/* Remove blue border on autofill */
+
+input:-webkit-autofill:focus {
+  border: 1px solid #a855f7 !important;
+}

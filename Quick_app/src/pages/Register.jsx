@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import API from "../api/axios";
 import { useNavigate } from "react-router-dom";
+import AuthLayout from "../layouts/AuthLayout";
 import {
   User,
   Mail,
@@ -67,39 +68,7 @@ const Register = () => {
 };
 
   return (
-    <div className="relative min-h-screen bg-[#050816] overflow-hidden">
-
-      <div className="absolute inset-0 bg-gradient-to-br from-[#240046] via-[#3C096C] to-[#050816]" />
-
-      <img
-        src={navBg}
-        alt=""
-        className="absolute inset-0 w-full h-full object-cover opacity-10"
-      />
-
-      <div className="absolute -top-20 left-0 w-96 h-96 bg-purple-600/30 blur-[150px] rounded-full" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-600/30 blur-[150px] rounded-full" />
-
-      <div className="relative z-10 flex items-center justify-center min-h-screen  px-4 sm:px-6 py-20 sm:py-10">
-        <button type="button" onClick={() => navigate("/")}
-          className="fixed top-4 right-4 md:absolute md:top-5 md:right-5 z-50 h-11 w-11 rounded-full bg-black/40
-          backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-red-500
-          hover:border-red-500 transition-all duration-300"                  >
-          <X size={22} />
-        </button>
-        <motion.div
-          initial={{ opacity: 0, y: 60 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: .7 }}
-          className="relative w-full max-w-xl rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl
-          p-6 sm:p-8 lg:p-10">
-          <div className="flex justify-center">
-            <img 
-              src={logo} 
-              alt="logo" 
-              className="h-16 sm:h-20 lg:h-24"
-            />
-          </div>
+    <AuthLayout>
 
           <h1 className="mt-5 text-center text-3xl sm:text-4xl font-bold text-white">
             Create Account 
@@ -127,6 +96,7 @@ const Register = () => {
                 <input
                   type="text"
                   placeholder="Enter Full Name"
+                  autoComplete="name"
                   className="w-full bg-transparent py-3.5 sm:py-4 px-3 text-white outline-none"
 
                   {...register("fullName", {
@@ -155,6 +125,7 @@ const Register = () => {
                 <input
                   type="email"
                   placeholder="Enter Email"
+                  autoComplete="email"
                   className="w-full bg-transparent py-3.5 sm:py-4 px-3 text-white outline-none"
 
                   {...register("email", {
@@ -183,6 +154,7 @@ const Register = () => {
                 <input
                   type="tel"
                   placeholder="Enter Mobile Number"
+                  autoComplete="tel"
                   className="w-full bg-transparent py-3.5 sm:py-4 px-3 text-white outline-none"
 
                   {...register("mobile", {
@@ -215,6 +187,7 @@ const Register = () => {
                 <input
                   type={showPassword ? "text" : "password"}
                   placeholder="Password"
+                  autoComplete="new-password"
                   className="w-full bg-transparent py-3.5 sm:py-4 px-3 text-white outline-none"
 
                   {...register("password", {
@@ -254,6 +227,7 @@ const Register = () => {
                 <input
                   type={showConfirm ? "text" : "password"}
                   placeholder="Confirm Password"
+                  autoComplete="new-password"
                   className="w-full bg-transparent py-3.5 sm:py-4 px-3 text-white outline-none"
 
                   {...register("confirmPassword", {
@@ -313,12 +287,8 @@ const Register = () => {
             </NavLink>
 
           </p>
+          </AuthLayout>
 
-        </motion.div>
-
-      </div>
-
-    </div>
   );
 };
 

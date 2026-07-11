@@ -91,12 +91,13 @@ const VerifyOTP = () => {
       otp: enteredOtp,
     });
 
-    alert(res.data.message);
+    localStorage.setItem("token", res.data.token);
+    localStorage.setItem("user", JSON.stringify(res.data.user));
 
     localStorage.removeItem("email");
 
-    navigate("/login");
-
+    navigate("/dashboard");
+    
   } catch (error) {
 
     alert(error.response?.data?.message);

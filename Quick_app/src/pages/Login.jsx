@@ -119,6 +119,7 @@ const Login = () => {
                   <input
                     type="email"
                     placeholder="Enter Email"
+                    autoComplete="email"
                     className="w-full bg-transparent py-3.5 sm:py-4 px-3 text-white placeholder-gray-400 outline-none"
                     {...register("email", {
                       required: "Email Required",
@@ -145,6 +146,7 @@ const Login = () => {
                   <input
                     type={showPassword ? "text":"password"}
                     placeholder="Enter Password"
+                    autoComplete="current-password"
                     className="w-full bg-transparent py-3.5 sm:py-4 px-3 text-white placeholder-gray-400 outline-none"
                     {...register("password",{
                       required:"Password Required",

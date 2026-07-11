@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import API from "../api/axios";
+import AuthLayout from "../layouts/AuthLayout";
 
 const ResetPassword = () => {
 
@@ -48,9 +49,7 @@ const ResetPassword = () => {
 
   return(
 
-    <div className="min-h-screen bg-[#050816] flex justify-center items-center p-5">
-
-        <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 w-full max-w-md">
+   <AuthLayout>
 
             <h1 className="text-3xl text-center text-white font-bold">
             Reset Password
@@ -65,6 +64,7 @@ const ResetPassword = () => {
                     <input
                         type={show1?"text":"password"}
                         placeholder="New Password"
+                        autoComplete="new-password"
                         className="w-full bg-transparent p-4 text-white outline-none"
                         value={password}
                         onChange={(e)=>setPassword(e.target.value)}
@@ -87,6 +87,7 @@ const ResetPassword = () => {
                     <input
                         type={show2?"text":"password"}
                         placeholder="Confirm Password"
+                        autoComplete="new-password"
                         className="w-full bg-transparent p-4 text-white outline-none"
                         value={confirm}
                         onChange={(e)=>setConfirm(e.target.value)}
@@ -107,9 +108,7 @@ const ResetPassword = () => {
 
             </button>
 
-        </div>
-
-    </div>
+    </AuthLayout>
 
   )
 
