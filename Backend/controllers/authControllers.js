@@ -637,28 +637,82 @@ export const login = async (req, res) => {
   }
 };
 
-export const profile = async (req, res) => {
+// export const profile = async (req, res) => {
+//   try {
+//     const user = await User.findById(req.user.id).select("-password");
+
+//     if (!user) {
+//       return res.status(404).json({
+//         success: false,
+//         message: "User not found",
+//       });
+//     }
+
+//     return res.status(200).json({
+//       success: true,
+//       user,
+//     });
+
+//   } catch (error) {
+//     console.log(error);
+
+//     return res.status(500).json({
+//       success: false,
+//       message: error.message,
+//     });
+//   }
+// };
+
+export const forgotPassword = async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select("-password");
+
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({
+        success: false,
+        message: "Email is required",
+      });
+    }
+
+    const user = await User.findOne({ email });
 
     if (!user) {
       return res.status(404).json({
         success: false,
-        message: "User not found",
+        message: "Email not found",
+      });
+    }
+
+    const otp = generateOTP();
+
+    user.resetOTP = otp;
+    user.resetOTPExpire = Date.now() + 5 * 60 * 1000;
+
+    await user.save();
+
+    const mailSent = await sendOTP(email, otp);
+
+    if (!mailSent) {
+      return res.status(500).json({
+        success: false,
+        message: "Email not sent",
       });
     }
 
     return res.status(200).json({
       success: true,
-      user,
+      message: "OTP sent successfully",
     });
 
   } catch (error) {
+
     console.log(error);
 
     return res.status(500).json({
       success: false,
       message: error.message,
     });
+
   }
 };
