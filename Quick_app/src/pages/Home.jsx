@@ -59,7 +59,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import Sidebar from "../component/layout/SideBar";
+import Sidebar from "../component/layout/Sidebar";
 import HeroSection from "../component/home/HeroSection";
 import DashboardStats from "../component/home/DashboardStats";
 import LeaderboardSection from "../component/home/LeaderboardSection";
