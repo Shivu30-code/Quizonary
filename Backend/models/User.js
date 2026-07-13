@@ -41,6 +41,10 @@ const userSchema = new mongoose.Schema(
       type: Date,
       default: null,
     },
+    avatar: {
+      type: String,
+      default: "https://api.dicebear.com/9.x/adventurer/svg?seed=lion",
+    },
   },
   {
     timestamps: true,

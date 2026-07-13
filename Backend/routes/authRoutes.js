@@ -8,6 +8,7 @@ import {
   forgotPassword,
   verifyForgotOTP,
   resetPassword,
+  updateAvatar,
 } from "../controllers/authControllers.js";
 
 const router = express.Router();
@@ -20,7 +21,7 @@ router.post("/login", login);
 router.post("/forgot-password", forgotPassword);
 router.post("/verify-forgot-otp", verifyForgotOTP);
 router.post("/reset-password", resetPassword);
-// router.get("/profile", auth, profile);
+router.put("/avatar", updateAvatar);
 router.get("/test", (req, res) => {
   res.json({
     success: true,

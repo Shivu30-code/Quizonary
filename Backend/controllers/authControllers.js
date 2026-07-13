@@ -210,6 +210,7 @@ if (otpData.otp !== otp) {
         fullName: user.fullName,
         email: user.email,
         mobile: user.mobile,
+        avatar: user.avatar,
       },
     });
 
@@ -322,7 +323,13 @@ export const login = async (req, res) => {
       success: true,
       message: "Login successful",
       token,
-      user,
+      user: {
+        id: user._id,
+        fullName: user.fullName,
+        email: user.email,
+        mobile: user.mobile,
+        avatar: user.avatar,
+      },
     });
   } catch (error) {
     console.log(error);
@@ -494,3 +501,38 @@ export const resetPassword = async (req, res) => {
 
   }
 };
+
+export const updateAvatar = async (req, res) => {
+  try {
+
+    const { userId, avatar } = req.body;
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    user.avatar = avatar;
+
+    await user.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Avatar Updated",
+      avatar: user.avatar,
+    });
+
+  } catch (error) {
+
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+
+  }
+};
+
