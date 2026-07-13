@@ -61,7 +61,7 @@ import { useNavigate } from "react-router-dom";
 
 import Sidebar from "../component/layout/Sidebar";
 import HeroSection from "../component/home/HeroSection";
-import DashboardStats from "../component/home/DashboardStats";
+// import DashboardStats from "../component/home/DashboardStats";
 import LeaderboardSection from "../component/home/LeaderboardSection";
 import NoticeSection from "../component/home/NoticeSection";
 import RulesSection from "../component/home/RulesSection";
