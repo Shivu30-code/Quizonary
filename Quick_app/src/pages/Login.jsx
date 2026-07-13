@@ -41,7 +41,7 @@ const Login = () => {
 
     alert(res.data.message);
 
-    navigate("/dashboard");
+    navigate("/home");
 
   } catch (error) {
 

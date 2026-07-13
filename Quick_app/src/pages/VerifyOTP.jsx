@@ -96,7 +96,7 @@ const VerifyOTP = () => {
 
     localStorage.removeItem("email");
 
-    navigate("/dashboard");
+    navigate("/home");
 
   } catch (error) {
 

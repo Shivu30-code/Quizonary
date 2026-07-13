@@ -8,10 +8,11 @@ import WelcomeHome from "./component/WelcomeHome";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import VerifyOTP from "./pages/VerifyOTP";
-import Dashboard from "./pages/Dashboard";
+// import Dashboard from "./pages/Dashboard";
 import ForgotPassword from "./pages/ForgotPassword";
 import VerifyForgotOTP from "./pages/VerifyForgotOTP";
 import ResetPassword from "./pages/ResetPassword";
+import Home from "./pages/Home";
 
 function App() {
   return (
@@ -30,7 +31,8 @@ function App() {
 
 
       <Route element={<MainLayout />}>
-        <Route path="/dashboard" element={<Dashboard />} />
+        {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+        <Route path="/home" element={<Home />} />
       </Route>
 
     </Routes>

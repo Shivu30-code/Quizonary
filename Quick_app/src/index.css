@@ -20,3 +20,16 @@ select:-webkit-autofill {
 input:-webkit-autofill:focus {
   border: 1px solid #a855f7 !important;
 }
+
+::-webkit-scrollbar{
+width:6px;
+}
+
+::-webkit-scrollbar-thumb{
+background:#9333ea;
+border-radius:20px;
+}
+
+::-webkit-scrollbar-track{
+background:#f3f4f6;
+}

@@ -10,7 +10,7 @@ const WelcomeNav = () => {
   return (
     <nav className="fixed top-0 left-0 w-full z-50 overflow-hidden shadow-[0_8px_30px_rgba(157,78,221,0.35)] border-b border-purple-900/20">
 
-        <div className="absolute inset-0 bg-gradient-to-r from-[#240046] via-[#5A189A] to-[#9D4EDD]"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#240046] via-[#5A189A] to-[#9D4EDD]"/>
 
         <img
             src={navBg}
