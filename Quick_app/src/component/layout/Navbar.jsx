@@ -29,11 +29,6 @@ const Navbar = () => {
 const handleSaveAvatar = async () => {
   try {
 
-    const updatedUser = {
-      ...user,
-      avatar: selectedAvatar,
-    };
-
     const res = await API.put("/auth/avatar", {
       userId: user.id,
       avatar: selectedAvatar,
@@ -41,16 +36,18 @@ const handleSaveAvatar = async () => {
 
     if (res.data.success) {
 
+      const updatedUser = {
+        ...user,
+        avatar: selectedAvatar,
+      };
+
       localStorage.setItem(
         "user",
         JSON.stringify(updatedUser)
       );
-
-      alert("Avatar Updated Successfully");
-
       setShowAvatarModal(false);
 
-      window.location.reload("/home");
+      alert("Avatar Updated Successfully");
 
     }
 
@@ -66,7 +63,7 @@ const handleSaveAvatar = async () => {
 
       <div className="flex-1 min-w-0 pl-14 lg:pl-0">
         <h2 className="text-base sm:text-xl lg:text-2xl font-bold text-gray-800 truncate">
-          Welcome 
+          Welcome &nbsp; 
           <span className="text-purple-600">
             {user?.fullName}
           </span>
