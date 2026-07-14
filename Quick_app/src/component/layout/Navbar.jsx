@@ -14,42 +14,7 @@ import unicorn from "../../assets/avatars/unicorn.jpg";
 const Navbar = () => {
   const [showAvatarModal, setShowAvatarModal] = useState(false);
   const user = JSON.parse(localStorage.getItem("user"));
-    const [selectedAvatar, setSelectedAvatar] = useState(user?.avatar);
-
-//   const avatars = [
-//   {
-//     name: "Lion",
-//     url: "https://api.dicebear.com/9.x/adventurer/svg?seed=lion",
-//   },
-//   {
-//     name: "Tiger",
-//     url: "https://api.dicebear.com/9.x/adventurer/svg?seed=tiger",
-//   },
-//   {
-//     name: "Panda",
-//     url: "https://api.dicebear.com/9.x/adventurer/svg?seed=panda",
-//   },
-//   {
-//     name: "Fox",
-//     url: "https://api.dicebear.com/9.x/adventurer/svg?seed=fox",
-//   },
-//   {
-//     name: "Dog",
-//     url: "https://api.dicebear.com/9.x/adventurer/svg?seed=dog",
-//   },
-//   {
-//     name: "Cat",
-//     url: "https://api.dicebear.com/9.x/adventurer/svg?seed=cat",
-//   },
-//   {
-//     name: "Rabbit",
-//     url: "https://api.dicebear.com/9.x/adventurer/svg?seed=rabbit",
-//   },
-//   {
-//     name: "Bear",
-//     url: "https://api.dicebear.com/9.x/adventurer/svg?seed=bear",
-//   },
-// ];
+  const [selectedAvatar, setSelectedAvatar] = useState(user?.avatar);
   const avatars = [
   { name: "Lion", url: lion },
   { name: "Tiger", url: tiger },
@@ -85,7 +50,7 @@ const handleSaveAvatar = async () => {
 
       setShowAvatarModal(false);
 
-      window.location.reload();
+      window.location.reload("/home");
 
     }
 
@@ -101,7 +66,7 @@ const handleSaveAvatar = async () => {
 
       <div className="flex-1 min-w-0 pl-14 lg:pl-0">
         <h2 className="text-base sm:text-xl lg:text-2xl font-bold text-gray-800 truncate">
-          Welcome Back 👋
+          Welcome 
           <span className="text-purple-600">
             {user?.fullName}
           </span>
@@ -127,48 +92,33 @@ const handleSaveAvatar = async () => {
           </span>
         </button>
 
-        {/* Profile */}
-        {/* <img
-          src="https://i.pravatar.cc/150?img=12"
-          alt="Profile"
-          className="w-9 h-9 sm:w-11 sm:h-11 lg:w-12 lg:h-12 rounded-full border-2 lg:border-4 border-purple-200 object-cover"
-        /> */}
+
         <div className="relative">
+          <div
+          onClick={() => setShowAvatarModal(true)}
+          className="relative cursor-pointer"
+        >
+          {user?.avatar ? (
+            <img
+              src={user.avatar}
+              alt="Profile"
+              className="w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12 rounded-full border-2 lg:border-4 border-purple-300 object-cover hover:scale-105 duration-300"
+            />
+          ) : (
+            <div className="w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12 rounded-full border-2 lg:border-4 border-purple-300 bg-purple-100 flex items-center justify-center hover:scale-105 duration-300">
+              <User className="w-5 h-5 lg:w-6 lg:h-6 text-purple-600" />
+            </div>
+          )}
+          </div>
 
-  {/* <img
-    src={
-      user?.avatar ||
-      "lion"
-    }
-    alt="Profile"
-    onClick={() => setShowAvatarModal(true)}
-    className="w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12 rounded-full border-2 lg:border-4 border-purple-300 cursor-pointer object-cover hover:scale-105 duration-300"
-  /> */}
-  <div
-  onClick={() => setShowAvatarModal(true)}
-  className="relative cursor-pointer"
->
-  {user?.avatar ? (
-    <img
-      src={user.avatar}
-      alt="Profile"
-      className="w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12 rounded-full border-2 lg:border-4 border-purple-300 object-cover hover:scale-105 duration-300"
-    />
-  ) : (
-    <div className="w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12 rounded-full border-2 lg:border-4 border-purple-300 bg-purple-100 flex items-center justify-center hover:scale-105 duration-300">
-      <User className="w-5 h-5 lg:w-6 lg:h-6 text-purple-600" />
-    </div>
-  )}
-</div>
+          <button
+            onClick={() => setShowAvatarModal(true)}
+            className="absolute -bottom-1 -right-1 bg-purple-600 text-white rounded-full p-1 shadow-lg hover:bg-purple-700"
+          >
+            <Pencil size={10} />
+          </button>
 
-  <button
-    onClick={() => setShowAvatarModal(true)}
-    className="absolute -bottom-1 -right-1 bg-purple-600 text-white rounded-full p-1 shadow-lg hover:bg-purple-700"
-  >
-    <Pencil size={10} />
-  </button>
-
-</div>
+        </div>
 
 
       </div>
@@ -197,43 +147,43 @@ const handleSaveAvatar = async () => {
               Choose your favourite avatar.
             </p>
 
-           <div className="grid grid-cols-4 gap-4 mt-6">
+            <div className="grid grid-cols-4 gap-4 mt-6">
 
-  {avatars.map((avatar, index) => (
+              {avatars.map((avatar, index) => (
 
-    <button
-      key={index}
-      onClick={() => setSelectedAvatar(avatar.url)}
-      className={`rounded-2xl p-2 border-2 transition-all duration-300
+                <button
+                  key={index}
+                  onClick={() => setSelectedAvatar(avatar.url)}
+                  className={`rounded-2xl p-2 border-2 transition-all duration-300
 
-      ${
-        selectedAvatar === avatar.url
-          ? "border-purple-600 bg-purple-50 scale-105"
-          : "border-gray-200 hover:border-purple-300"
-      }`}
-    >
+                  ${
+                    selectedAvatar === avatar.url
+                      ? "border-purple-600 bg-purple-50 scale-105"
+                      : "border-gray-200 hover:border-purple-300"
+                  }`}
+                >
 
-      <img
-        src={avatar.url}
-        alt={avatar.name}
-        className="w-16 h-16 rounded-full mx-auto"
-      />
+                  <img
+                    src={avatar.url}
+                    alt={avatar.name}
+                    className="w-16 h-16 rounded-full mx-auto"
+                  />
 
-      <p className="text-xs mt-2 font-medium">
-        {avatar.name}
-      </p>
+                  <p className="text-xs mt-2 font-medium">
+                    {avatar.name}
+                  </p>
 
-    </button>
+                </button>
 
-  ))}
+              ))}
 
-</div>
- <button
-  onClick={handleSaveAvatar}
-        className="w-full mt-6 bg-gradient-to-r from-purple-600 to-pink-500 text-white py-3 rounded-2xl font-semibold hover:scale-[1.02] duration-300"
-      >
-        Save Avatar
-      </button>
+            </div>
+            <button
+              onClick={handleSaveAvatar}
+              className="w-full mt-6 bg-gradient-to-r from-purple-600 to-pink-500 text-white py-3 rounded-2xl font-semibold hover:scale-[1.02] duration-300"
+            >
+              Save Avatar
+            </button>
 
           </div>
 
