@@ -43,7 +43,17 @@ const userSchema = new mongoose.Schema(
     },
     avatar: {
       type: String,
-      default: "https://api.dicebear.com/9.x/adventurer/svg?seed=lion",
+      default: "",
+    },
+    bio: {
+      type: String,
+      default: "",
+    },
+
+    gender: {
+      type: String,
+      enum: ["Male", "Female", "Other", "Prefer not to say", ""],
+      default: "",
     },
   },
   {

@@ -13,6 +13,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import VerifyForgotOTP from "./pages/VerifyForgotOTP";
 import ResetPassword from "./pages/ResetPassword";
 import Home from "./pages/Home";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/verify-forgot-otp" element={<VerifyForgotOTP />} />
       <Route path="/reset-password" element={<ResetPassword />} />
+      <Route path="/profile" element={<Profile />} />
 
 
       <Route element={<MainLayout />}>

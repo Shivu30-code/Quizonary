@@ -536,3 +536,52 @@ export const updateAvatar = async (req, res) => {
   }
 };
 
+export const updateProfile = async (req, res) => {
+  try {
+
+    const {
+      userId,
+      fullName,
+      bio,
+      gender,
+      avatar,
+    } = req.body;
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    if (fullName !== undefined)
+      user.fullName = fullName;
+
+    if (bio !== undefined)
+      user.bio = bio;
+
+    if (gender !== undefined)
+      user.gender = gender;
+
+    if (avatar !== undefined)
+      user.avatar = avatar;
+
+    await user.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Profile Updated Successfully",
+      user,
+    });
+
+  } catch (error) {
+
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+
+  }
+};
