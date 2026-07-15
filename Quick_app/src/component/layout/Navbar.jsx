@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Bell, Pencil, X , User} from "lucide-react";
 import API from "../../api/axios";
-import lion from "../../assets/avatars/lion.jpg";
-import tiger from "../../assets/avatars/tiger.jpg";
+import elephant from "../../assets/avatars/elephant.png";
+import giraffe from "../../assets/avatars/giraffe.png";
 import panda from "../../assets/avatars/panda.jpg";
 import fox from "../../assets/avatars/fox.jpg";
 import koala from "../../assets/avatars/koala.jpg";
@@ -16,10 +16,10 @@ const Navbar = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const [selectedAvatar, setSelectedAvatar] = useState(user?.avatar);
   const avatars = [
-  { name: "Lion", url: lion },
-  { name: "Tiger", url: tiger },
-  { name: "Panda", url: panda },
+  { name: "elephant", url: elephant },
   { name: "Fox", url: fox },
+  { name: "giraffe", url: giraffe },
+  { name: "Panda", url: panda },
   { name: "Koala", url: koala },
   { name: "Bear", url: bear },
   { name: "unicorn", url: unicorn },

@@ -22,6 +22,11 @@ const userSchema = new mongoose.Schema(
       unique: true,
       trim: true,
     },
+    userId: {
+      type: String,
+      required: true,
+      unique: true,
+    },
 
     password: {
       type: String,
@@ -55,10 +60,7 @@ const userSchema = new mongoose.Schema(
       enum: ["Male", "Female", "Other", "Prefer not to say", ""],
       default: "",
     },
-    userId:{
-      type:String,
-      unique:true,
-    },
+   
   },
   {
     timestamps: true,
