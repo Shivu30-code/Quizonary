@@ -203,23 +203,19 @@ if (otpData.otp !== otp) {
     //   password: otpData.password,
     //   isVerified: true,
     // });
-    const generateUserId = (fullName) => {
+    const user = await User.create({
 
-const randomCode = Math.random()
-.toString(36)
-.substring(2,6)
-.toUpperCase();
+      userId:generateUserId(
+      otpData.fullName
+      ),
 
+      fullName: otpData.fullName,
+      email: otpData.email,
+      mobile: otpData.mobile,
+      password: otpData.password,
+      isVerified: true,
 
-const name = fullName
-.replace(/\s+/g,"")
-.substring(0,6)
-.toUpperCase();
-
-
-return `${name}-${randomCode}`;
-
-};
+});
 
     // Generate JWT
     const token = jwt.sign(
@@ -360,6 +356,7 @@ export const login = async (req, res) => {
       token,
       user: {
         id: user._id,
+        userId:user.userId,
         fullName: user.fullName,
         email: user.email,
         mobile: user.mobile,
