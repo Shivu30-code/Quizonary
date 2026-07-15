@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 
 import WelcomeLayout from "./layouts/WelcomeLayout";
-import MainLayout from "./layouts/MainLayout";
+import HomeLayout from "./layouts/HomeLayout";
 
 import WelcomeHome from "./component/WelcomeHome";
 
@@ -14,6 +14,7 @@ import VerifyForgotOTP from "./pages/VerifyForgotOTP";
 import ResetPassword from "./pages/ResetPassword";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
+import SidebarLayout from "./layouts/SidebarLayout";
 
 function App() {
   return (
@@ -29,15 +30,21 @@ function App() {
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/verify-forgot-otp" element={<VerifyForgotOTP />} />
       <Route path="/reset-password" element={<ResetPassword />} />
-      <Route path="/profile" element={<Profile />} />
+      
 
 
-      <Route element={<MainLayout />}>
-        {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+      <Route element={<HomeLayout />}>
         <Route path="/home" element={<Home />} />
       </Route>
 
-    </Routes>
+      <Route element={<SidebarLayout />}>
+
+          <Route
+            path="/profile"
+            element={<Profile />}
+          />
+        </Route>
+      </Routes>
   );
 }
 

@@ -106,6 +106,23 @@ export const register = async (req, res) => {
     });
   }
 };
+const generateUserId = (fullName) => {
+
+const randomCode = Math.random()
+.toString(36)
+.substring(2,6)
+.toUpperCase();
+
+
+const name = fullName
+.replace(/\s+/g,"")
+.substring(0,6)
+.toUpperCase();
+
+
+return `${name}-${randomCode}`;
+
+};
 
 export const verifyOTP = async (req, res) => {
   try {
@@ -179,13 +196,30 @@ if (otpData.otp !== otp) {
     }
 
     // Create User AFTER OTP Verification
-    const user = await User.create({
-      fullName: otpData.fullName,
-      email: otpData.email,
-      mobile: otpData.mobile,
-      password: otpData.password,
-      isVerified: true,
-    });
+    // const user = await User.create({
+    //   fullName: otpData.fullName,
+    //   email: otpData.email,
+    //   mobile: otpData.mobile,
+    //   password: otpData.password,
+    //   isVerified: true,
+    // });
+    const generateUserId = (fullName) => {
+
+const randomCode = Math.random()
+.toString(36)
+.substring(2,6)
+.toUpperCase();
+
+
+const name = fullName
+.replace(/\s+/g,"")
+.substring(0,6)
+.toUpperCase();
+
+
+return `${name}-${randomCode}`;
+
+};
 
     // Generate JWT
     const token = jwt.sign(
@@ -207,6 +241,7 @@ if (otpData.otp !== otp) {
       token,
       user: {
         id: user._id,
+        userId:user.userId,
         fullName: user.fullName,
         email: user.email,
         mobile: user.mobile,
