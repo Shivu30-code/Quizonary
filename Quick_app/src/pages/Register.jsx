@@ -18,6 +18,8 @@ import { motion } from "framer-motion";
 
 import logo from "../assets/logo.png";
 import navBg from "../assets/navBg.png";
+import { useLanguage } from "../context/LanguageContext";
+import { translations } from "../translation/translation";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -30,6 +32,9 @@ const Register = () => {
     watch,
     formState: { errors },
   } = useForm();
+    const { language } = useLanguage();
+  
+    const t = translations[language];
 
   const password = watch("password");
 
@@ -71,7 +76,7 @@ const Register = () => {
     <AuthLayout>
 
           <h1 className="mt-5 text-center text-3xl sm:text-4xl font-bold text-white">
-            Create Account 
+            {t.createAccount} 
           </h1>
 
           <p className="text-center text-gray-300 mt-2">
@@ -86,7 +91,7 @@ const Register = () => {
             <div>
 
               <label className="text-gray-300">
-                Full Name
+                {t.fullName}
               </label>
 
               <div className="mt-2 flex items-center rounded-xl border border-white/10 bg-white/10 px-4 focus-within:border-purple-500">
@@ -115,7 +120,7 @@ const Register = () => {
             <div>
 
               <label className="text-gray-300">
-                Email
+                {t.email}
               </label>
 
               <div className="mt-2 flex items-center rounded-xl border border-white/10 bg-white/10 px-4">
@@ -144,7 +149,7 @@ const Register = () => {
             <div>
 
               <label className="text-gray-300">
-                Mobile Number
+                {t.mobileNumber}
               </label>
 
               <div className="mt-2 flex items-center rounded-xl border border-white/10 bg-white/10 px-4">
@@ -177,7 +182,7 @@ const Register = () => {
             <div>
 
               <label className="text-gray-300">
-                Password
+                {t.password}
               </label>
 
               <div className="mt-2 flex items-center rounded-xl border border-white/10 bg-white/10 px-4">
@@ -217,7 +222,7 @@ const Register = () => {
             <div>
 
               <label className="text-gray-300">
-                Confirm Password
+                {t.confirmPassword}
               </label>
 
               <div className="mt-2 flex items-center rounded-xl border border-white/10 bg-white/10 px-4">
@@ -283,7 +288,7 @@ const Register = () => {
               to="/login"
               className="ml-2 text-purple-300 font-semibold hover:text-white"
             >
-              Login
+              {t.login}
             </NavLink>
 
           </p>

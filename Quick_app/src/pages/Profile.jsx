@@ -68,23 +68,23 @@ return (
 
   <div className="pt-4 lg:pt-2 pb-12">
 
-    <div className="max-w-7xl mx-auto">
+    <div className="max-w-7xl mx-auto theme-card">
 
       <div className="text-center mb-8">
 
-        <h1 className="text-4xl sm:text-5xl font-black bg-gradient-to-r from-purple-700 via-violet-600 to-pink-500 bg-clip-text text-transparent">
+        <h1 className="text-4xl sm:text-5xl font-black bg-gradient-to-r from-purple-700 via-violet-600 to-pink-500 bg-clip-text text-transparent theme-text">
           My Profile
         </h1>
 
-        <p className="text-gray-500 mt-3 text-base sm:text-lg">
+        <p className="text-gray-500 mt-3 text-base sm:text-lg theme-text-light">
           Manage your personal information and account settings
         </p>
 
       </div>
 
-      <div className="relative overflow-hidden rounded-[35px] bg-gradient-to-r from-[#6D28D9] via-[#9333EA] to-[#EC4899] p-[2px] shadow-[0_20px_60px_rgba(147,51,234,.35)]">
+      <div className="relative overflow-hidden rounded-[35px] bg-gradient-to-r from-[#6D28D9] via-[#9333EA] to-[#EC4899] p-[2px] shadow-[0_20px_60px_rgba(147,51,234,.35)] ">
 
-        <div className="relative rounded-[33px] bg-white overflow-hidden">
+        <div className="relative rounded-[33px] bg-white overflow-hidden theme-card">
 
 
           <div className="absolute inset-0">
@@ -110,23 +110,23 @@ return (
 
             <div className="relative">
 
-              <div className="w-40 h-40 rounded-full bg-white p-2 shadow-2xl">
+              <div className="w-40 h-40 rounded-full bg-white p-2 shadow-2xl theme-card">
 
                 {avatar ? (
 
                   <img
                     src={avatar}
                     alt="avatar"
-                    className="w-full h-full rounded-full object-cover"
+                    className="w-full h-full rounded-full object-cover "
                   />
 
                   ) : (
 
-                  <div className="w-full h-full rounded-full bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center">
+                  <div className="w-full h-full rounded-full bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center theme-card">
 
                     <User
                       size={75}
-                      className="text-purple-600"
+                      className="text-purple-600 theme-text"
                     />
 
                   </div>
@@ -135,17 +135,17 @@ return (
 
               <button
                 onClick={() => setShowAvatarModal(true)}
-                className="absolute bottom-2 right-2 w-12 h-12 rounded-full bg-gradient-to-r from-purple-600 to-pink-500 text-white flex items-center justify-center shadow-xl hover:scale-110 duration-300"
+                className="absolute bottom-2 right-2 w-12 h-12 rounded-full bg-gradient-to-r from-purple-600 to-pink-500 text-white flex items-center justify-center shadow-xl hover:scale-110 duration-300 "
               >
 
-               <Camera size={22}/>
+               <Camera size={22} className="theme-text"/>
 
               </button>
 
             </div>
 
 
-            <h2 className="mt-6 text-3xl font-black text-gray-800">
+            <h2 className="mt-6 text-3xl font-black text-gray-800 theme-text">
 
               {fullName || "Quiznary User"}
 
@@ -153,7 +153,7 @@ return (
 
    
 
-            <p className="mt-2 font-semibold text-purple-600">
+            <p className="mt-2 font-semibold text-purple-600 theme-text-light">
 
               User ID :
 
@@ -195,7 +195,7 @@ return (
         </div>
       </div>
 
-      <div className="mt-10 bg-white rounded-[35px] shadow-2xl border border-purple-100 p-6 sm:p-10">
+      <div className="mt-10 bg-white rounded-[35px] shadow-2xl border border-purple-100 p-6 sm:p-10 theme-card">
 
         <div className="flex items-center gap-3 mb-8">
 
@@ -206,13 +206,13 @@ return (
 
           <div>
 
-            <h2 className="text-3xl font-bold text-gray-800">
+            <h2 className="text-3xl font-bold text-gray-800 theme-text">
 
               Personal Information
 
             </h2>
 
-            <p className="text-gray-500">
+            <p className="text-gray-500 theme-text-light">
 
               Update your profile details
 
@@ -225,7 +225,7 @@ return (
 
           <div>
 
-            <label className="block mb-2 font-semibold text-gray-700">
+            <label className="block mb-2 font-semibold text-gray-700 theme-text">
               Full Name
             </label>
 
@@ -234,7 +234,7 @@ return (
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
               placeholder="Enter your full name"
-              className="w-full h-14 rounded-2xl border border-purple-200 bg-purple-50/40 px-5 outline-none transition-all duration-300 focus:bg-white focus:border-purple-600 focus:ring-4 focus:ring-purple-200"
+              className="w-full h-14 rounded-2xl border border-purple-200 bg-purple-50/40 px-5 outline-none transition-all duration-300 focus:bg-white focus:border-purple-600 focus:ring-4 focus:ring-purple-200 theme-input"
             />
 
           </div>
@@ -242,14 +242,14 @@ return (
 
           <div>
 
-            <label className="block mb-2 font-semibold text-gray-700">
+            <label className="block mb-2 font-semibold text-gray-700 theme-text">
               Gender
             </label>
 
             <select
               value={gender}
               onChange={(e) => setGender(e.target.value)}
-              className="w-full h-14 rounded-2xl border border-purple-200 bg-purple-50/40 px-5 outline-none transition-all duration-300 focus:bg-white focus:border-purple-600 focus:ring-4 focus:ring-purple-200"
+              className="w-full h-14 rounded-2xl border border-purple-200 bg-purple-50/40 px-5 outline-none transition-all duration-300 focus:bg-white focus:border-purple-600 focus:ring-4 focus:ring-purple-200 theme-input"
             >
 
               <option value="">Select Gender</option>
@@ -267,14 +267,14 @@ return (
 
         <div className="mt-7">
 
-          <label className="block mb-2 font-semibold text-gray-700">
+          <label className="block mb-2 font-semibold text-gray-700 theme-text">
             Email Address
           </label>
 
           <input
             value={user.email}
             readOnly
-            className="w-full h-14 rounded-2xl bg-gray-100 border border-gray-200 px-5 text-gray-500 cursor-not-allowed"
+            className="w-full h-14 rounded-2xl bg-gray-100 border border-gray-200 px-5 text-gray-500 cursor-not-allowed theme-input"
           />
 
         </div>
@@ -282,14 +282,14 @@ return (
 
         <div className="mt-7">
 
-          <label className="block mb-2 font-semibold text-gray-700">
+          <label className="block mb-2 font-semibold text-gray-700 theme-text">
             Mobile Number
           </label>
 
           <input
             value={user.mobile}
             readOnly
-            className="w-full h-14 rounded-2xl bg-gray-100 border border-gray-200 px-5 text-gray-500 cursor-not-allowed"
+            className="w-full h-14 rounded-2xl bg-gray-100 border border-gray-200 px-5 text-gray-500 cursor-not-allowed theme-input"
           />
 
         </div>
@@ -299,11 +299,11 @@ return (
 
           <div className="flex justify-between items-center mb-2">
 
-            <label className="font-semibold text-gray-700">
+            <label className="font-semibold text-gray-700 theme-text">
               Bio
             </label>
 
-            <span className="text-sm font-semibold text-purple-600">
+            <span className="text-sm font-semibold text-purple-600 theme-text">
               {bio.length}/200
             </span>
 
@@ -315,17 +315,17 @@ return (
             value={bio}
             onChange={(e) => setBio(e.target.value)}
             placeholder="Tell everyone something about yourself..."
-            className="w-full rounded-2xl border border-purple-200 bg-purple-50/40 px-5 py-4 resize-none outline-none transition-all duration-300 focus:bg-white focus:border-purple-600 focus:ring-4 focus:ring-purple-200"
+            className="w-full rounded-2xl border border-purple-200 bg-purple-50/40 px-5 py-4 resize-none outline-none transition-all duration-300 focus:bg-white focus:border-purple-600 focus:ring-4 focus:ring-purple-200 theme-input"
           />
 
-          <p className="text-sm text-gray-400 mt-2">
+          <p className="text-sm text-gray-400 mt-2 theme-text-light">
             Your bio will appear on your public profile.
           </p>
 
         </div>  
 
 
-        <div className="my-10 border-t border-purple-100"></div>
+        <div className="my-10 border-t border-purple-100 theme-border"></div>
 
 
         <div className="flex justify-center">
@@ -356,9 +356,9 @@ return (
 
     {showAvatarModal && (
 
-      <div className="fixed inset-0 z-[999] flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
+      <div className="fixed inset-0 z-[999] flex items-center justify-center bg-black/60 backdrop-blur-sm px-4 ">
 
-        <div className="w-full max-w-lg rounded-[35px] bg-white shadow-[0_20px_60px_rgba(0,0,0,.25)] overflow-hidden animate-[fadeIn_.3s_ease]">
+        <div className="w-full max-w-lg rounded-[35px] bg-white shadow-[0_20px_60px_rgba(0,0,0,.25)] overflow-hidden animate-[fadeIn_.3s_ease] theme-card">
 
           <div className="bg-gradient-to-r from-purple-700 via-violet-600 to-pink-500 px-8 py-6 text-white">
 
@@ -382,7 +382,7 @@ return (
 
               <button
                 onClick={() => setShowAvatarModal(false)}
-                className="w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 duration-300 flex items-center justify-center"
+                className="w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 duration-300 flex items-center justify-center theme-danger"
               >
 
                 <X />
@@ -418,7 +418,7 @@ return (
                     className="w-16 h-16 rounded-full object-cover mx-auto"
                   />
 
-                  <p className="text-xs mt-3 font-semibold text-gray-700">
+                  <p className="text-xs mt-3 font-semibold text-gray-700 theme-text-light">
 
                     {item.name}
 

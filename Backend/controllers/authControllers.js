@@ -86,10 +86,10 @@ export const register = async (req, res) => {
 
     if (!mailSent) {
 
-        return res.status(500).json({
-            success:false,
-            message:"Email not sent"
-        });
+      return res.status(500).json({
+        success: false,
+        message: "Email not sent"
+      });
 
     }
     return res.status(200).json({
@@ -108,19 +108,19 @@ export const register = async (req, res) => {
 };
 const generateUserId = (fullName) => {
 
-const randomCode = Math.random()
-.toString(36)
-.substring(2,6)
-.toUpperCase();
+  const randomCode = Math.random()
+    .toString(36)
+    .substring(2, 6)
+    .toUpperCase();
 
 
-const name = fullName
-.replace(/\s+/g,"")
-.substring(0,6)
-.toUpperCase();
+  const name = fullName
+    .replace(/\s+/g, "")
+    .substring(0, 6)
+    .toUpperCase();
 
 
-return `${name}-${randomCode}`;
+  return `${name}-${randomCode}`;
 
 };
 
@@ -135,38 +135,38 @@ export const verifyOTP = async (req, res) => {
       });
     }
 
-const otpData = await OTP.findOne({ email });
+    const otpData = await OTP.findOne({ email });
 
-if (!otpData) {
-  return res.status(400).json({
-    success: false,
-    message: "OTP not found",
-  });
-}
+    if (!otpData) {
+      return res.status(400).json({
+        success: false,
+        message: "OTP not found",
+      });
+    }
 
-// Check if entered OTP is correct
-if (otpData.otp !== otp) {
+    // Check if entered OTP is correct
+    if (otpData.otp !== otp) {
 
-  otpData.attempts += 1;
+      otpData.attempts += 1;
 
-  await otpData.save();
+      await otpData.save();
 
-  if (otpData.attempts >= 5) {
+      if (otpData.attempts >= 5) {
 
-    await OTP.deleteMany({ email });
+        await OTP.deleteMany({ email });
 
-    return res.status(400).json({
-      success: false,
-      message: "Too many incorrect attempts. Please register again.",
-    });
+        return res.status(400).json({
+          success: false,
+          message: "Too many incorrect attempts. Please register again.",
+        });
 
-  }
+      }
 
-  return res.status(400).json({
-    success: false,
-    message: `Invalid OTP. Remaining attempts: ${5 - otpData.attempts}`,
-  });
-}
+      return res.status(400).json({
+        success: false,
+        message: `Invalid OTP. Remaining attempts: ${5 - otpData.attempts}`,
+      });
+    }
 
     // Check expiry
     if (otpData.expiresAt < new Date()) {
@@ -205,8 +205,8 @@ if (otpData.otp !== otp) {
     // });
     const user = await User.create({
 
-      userId:generateUserId(
-      otpData.fullName
+      userId: generateUserId(
+        otpData.fullName
       ),
 
       fullName: otpData.fullName,
@@ -215,7 +215,7 @@ if (otpData.otp !== otp) {
       password: otpData.password,
       isVerified: true,
 
-});
+    });
 
     // Generate JWT
     const token = jwt.sign(
@@ -237,7 +237,7 @@ if (otpData.otp !== otp) {
       token,
       user: {
         id: user._id,
-        userId:user.userId,
+        userId: user.userId,
         fullName: user.fullName,
         email: user.email,
         mobile: user.mobile,
@@ -269,12 +269,12 @@ export const resendOTP = async (req, res) => {
     const otpUser = await OTP.findOne({ email });
     const diff = Date.now() - otpUser.lastSentAt.getTime();
 
-if (diff < 30000) {
-  return res.status(400).json({
-    success: false,
-    message: `Please wait ${Math.ceil((30000 - diff) / 1000)} seconds before requesting another OTP.`,
-  });
-}
+    if (diff < 30000) {
+      return res.status(400).json({
+        success: false,
+        message: `Please wait ${Math.ceil((30000 - diff) / 1000)} seconds before requesting another OTP.`,
+      });
+    }
 
     if (!otpUser) {
       return res.status(404).json({
@@ -323,13 +323,20 @@ export const login = async (req, res) => {
     }
 
     const user = await User.findOne({ email });
+    if (!user.isActive) {
 
-    if (!user) {
-      return res.status(404).json({
+      return res.status(403).json({
         success: false,
-        message: "User not found",
+        message:
+          "Your account is deactivated. Contact support.",
       });
     }
+    // if (!user) {
+    //   return res.status(404).json({
+    //     success: false,
+    //     message: "User not found",
+    //   });
+    // }
 
     const match = await bcrypt.compare(password, user.password);
 
@@ -356,7 +363,7 @@ export const login = async (req, res) => {
       token,
       user: {
         id: user._id,
-        userId:user.userId, 
+        userId: user.userId,
         fullName: user.fullName,
         email: user.email,
         mobile: user.mobile,
@@ -617,3 +624,154 @@ export const updateProfile = async (req, res) => {
 
   }
 };
+
+export const deactivateUser = async (req, res) => {
+  try {
+
+    const { userId } = req.body;
+
+    if (!userId) {
+      return res.status(400).json({
+        success: false,
+        message: "User ID Required",
+      });
+    }
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User Not Found",
+      });
+    }
+
+    user.isActive = false;
+
+    await user.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Account Deactivated Successfully",
+    });
+
+  } catch (error) {
+
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+
+  }
+};
+
+export const changePassword = async (req, res) => {
+
+  try {
+
+    const {
+
+      userId,
+      oldPassword,
+      newPassword
+
+    } = req.body;
+
+
+    if (
+      !userId ||
+      !oldPassword ||
+      !newPassword
+    ) {
+
+      return res.status(400).json({
+
+        success: false,
+        message: "All fields required"
+
+      });
+
+    }
+
+
+    const user = await User.findById(userId);
+
+
+    if (!user) {
+
+      return res.status(404).json({
+
+        success: false,
+        message: "User not found"
+
+      });
+
+    }
+
+
+    const passwordMatched = await bcrypt.compare(
+
+      oldPassword,
+      user.password
+
+    );
+
+
+    if (!passwordMatched) {
+
+      return res.status(400).json({
+
+        success: false,
+        message: "Current Password is incorrect"
+
+      });
+
+    }
+
+
+    if (newPassword.length < 6) {
+
+      return res.status(400).json({
+
+        success: false,
+        message: "Password must be 6 characters"
+
+      });
+
+    }
+
+
+    const hashedPassword = await bcrypt.hash(
+
+      newPassword, 10
+
+    );
+
+
+    user.password = hashedPassword;
+
+    await user.save();
+
+
+    return res.status(200).json({
+
+      success: true,
+      message: "Password Updated Successfully"
+
+    });
+
+
+  }
+
+  catch (error) {
+
+    return res.status(500).json({
+
+      success: false,
+      message: error.message
+
+    });
+
+  }
+
+}

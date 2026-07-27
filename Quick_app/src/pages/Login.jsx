@@ -19,26 +19,52 @@ import logo from "../assets/logo.png";
 import navBg from "../assets/navBg.png";
 import { useNavigate } from "react-router-dom";
 import API from "../api/axios";
+import { useLanguage } from "../context/LanguageContext";
+import { translations } from "../translation/translation";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-
+  const { language } = useLanguage();
+  const t = translations[language];
   const onSubmit = async (data) => {
   try {
     setLoading(true);
 
     const res = await API.post("/auth/login", data);
 
-    localStorage.setItem("token", res.data.token);
-    localStorage.setItem("user", JSON.stringify(res.data.user));
+    if (rememberMe) {
 
+      localStorage.setItem(
+          "token",
+          res.data.token
+      );
+
+      localStorage.setItem(
+          "user",
+          JSON.stringify(res.data.user)
+      );
+
+    } else {
+
+      sessionStorage.setItem(
+          "token",
+          res.data.token
+      );
+
+      sessionStorage.setItem(
+          "user",
+          JSON.stringify(res.data.user)
+      );
+
+    }
     alert(res.data.message);
 
     navigate("/home");
@@ -50,6 +76,14 @@ const Login = () => {
   } finally {
 
     setLoading(false);
+
+  }
+  if(!user.isActive){
+
+    return res.status(400).json({
+      success:false,
+      message:"Your Account has been Deactivated"
+    });
 
   }
 };
@@ -92,7 +126,7 @@ const Login = () => {
 
             <h1 
               className="mt-5 text-center text-3xl sm:text-4xl font-bold text-white">
-              Welcome Back 👋
+              {t.welcomeBack} 👋
             </h1>
 
             <p className="mt-2 text-center text-gray-300">
@@ -106,7 +140,7 @@ const Login = () => {
               <div>
 
                 <label className="text-gray-300">
-                  Email
+                  {t.email}
                 </label>
 
                 <div 
@@ -136,7 +170,7 @@ const Login = () => {
               <div>
 
                 <label className="text-gray-300">
-                  Password
+                  {t.password}
                 </label>
 
                 <div className="mt-2 flex items-center rounded-xl border border-white/10 bg-white/10 px-4">
@@ -182,7 +216,12 @@ const Login = () => {
 
                 <label className="flex items-center gap-2 text-gray-300">
 
-                  <input type="checkbox"/>
+                  <input 
+                    type="checkbox"
+                    id="remember"
+                    checked={rememberMe}
+                    onChange={(e) => setRememberMe(e.target.checked)}
+                  />
 
                   Remember Me
 
@@ -192,7 +231,7 @@ const Login = () => {
                   to="/forgot-password"
                   className="text-purple-300 hover:text-white"
                 >
-                  Forgot Password?
+                  {t.forgotPassword}?
                 </NavLink>
 
               </div>
@@ -209,7 +248,7 @@ const Login = () => {
                   </div>
                   :
                   <div className="flex items-center justify-center gap-2">
-                    Login
+                    {t.login}
                     <ArrowRight size={20}/>
                   </div>
                }
@@ -222,7 +261,7 @@ const Login = () => {
                 to="/register"
                 className="ml-2 font-semibold text-purple-300 hover:text-white"
               >
-                Register
+                {t.register}
               </NavLink>
 
             </p>

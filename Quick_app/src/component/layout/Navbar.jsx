@@ -9,23 +9,35 @@ import koala from "../../assets/avatars/koala.jpg";
 import bear from "../../assets/avatars/bear.jpg";
 import cat from "../../assets/avatars/cat.jpg";
 import unicorn from "../../assets/avatars/unicorn.jpg";
-
-
+import {cardTheme,headingTheme,textTheme}from "../../utils/theme";
+import { useLanguage } from "../../context/LanguageContext";
+import { translations } from "../../translation/translation";
+import { getNotifications } from "../../utils/notificationStorage";
+import { useNavigate } from "react-router-dom";
 const Navbar = () => {
   const [showAvatarModal, setShowAvatarModal] = useState(false);
   const user = JSON.parse(localStorage.getItem("user"));
   const [selectedAvatar, setSelectedAvatar] = useState(user?.avatar);
+  const navigate = useNavigate();
   const avatars = [
-  { name: "elephant", url: elephant },
-  { name: "Fox", url: fox },
-  { name: "giraffe", url: giraffe },
-  { name: "Panda", url: panda },
-  { name: "Koala", url: koala },
-  { name: "Bear", url: bear },
-  { name: "unicorn", url: unicorn },
-  { name: "Cat", url: cat },
+    { name: "elephant", url: elephant },
+    { name: "Fox", url: fox },
+    { name: "giraffe", url: giraffe },
+    { name: "Panda", url: panda },
+    { name: "Koala", url: koala },
+    { name: "Bear", url: bear },
+    { name: "unicorn", url: unicorn },
+    { name: "Cat", url: cat },
+  ];
+  const { language } = useLanguage();
 
-];
+  const t = translations[language];
+  console.log(t.home);
+
+  const unreadCount = getNotifications().filter(
+    (item) => !item.read
+  ).length;
+
 const handleSaveAvatar = async () => {
   try {
 
@@ -59,17 +71,19 @@ const handleSaveAvatar = async () => {
 };
   return (
     <>
-    <div className="w-full bg-white shadow-lg rounded-2xl lg:rounded-3xl px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex items-center justify-between gap-3">
+    <div 
+      className="w-full bg-white shadow-lg rounded-2xl lg:rounded-3xl px-4 sm:px-6 
+      lg:px-8 py-3 sm:py-4 flex items-center justify-between gap-3 border-1 theme-card theme-border">
 
       <div className="flex-1 min-w-0 pl-14 lg:pl-0">
-        <h2 className="text-base sm:text-xl lg:text-2xl font-bold text-gray-800 truncate">
-          Welcome &nbsp; 
+        <h2 className="text-base sm:text-xl lg:text-2xl font-bold text-gray-800  truncate theme-text">
+          {t.welcome} &nbsp; 
           <span className="text-purple-600">
             {user?.fullName}
           </span>
         </h2>
 
-        <p className="hidden sm:block text-sm lg:text-base text-gray-500 mt-1">
+        <p className="hidden sm:block text-sm lg:text-base text-gray-500 mt-1 theme-text-light">
           Ready to win today's quiz?
         </p>
       </div>
@@ -77,17 +91,45 @@ const handleSaveAvatar = async () => {
 
       <div className="flex items-center gap-2 sm:gap-4 shrink-0">
 
-        <button 
+        {/* <button 
           className="relative p-2 rounded-full hover:bg-purple-50 transition duration-300"
         >
-          <Bell className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700" />
+          <Bell className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700"  />
 
           <span 
             className="absolute -top-1 -right-1 bg-pink-500 text-white w-4 h-4 sm:w-5 sm:h-5 rounded-full text-[9px] sm:text-[10px] flex items-center justify-center font-semibold"
           > 
             2
           </span>
-        </button>
+        </button> */}
+        <div 
+          onClick={() => navigate("/notifications")}
+          className="relative cursor-pointer">
+
+    <Bell size={24} />
+
+    {unreadCount > 0 && (
+        <div
+            className="
+            absolute
+            -top-2
+            -right-2
+            h-5
+            w-5
+            rounded-full
+            bg-red-500
+            text-white
+            text-xs
+            flex
+            items-center
+            justify-center
+            "
+        >
+            {unreadCount > 99 ? "99+" : unreadCount}
+
+        </div>
+    )}
+</div>
 
 
         <div className="relative">
@@ -99,10 +141,10 @@ const handleSaveAvatar = async () => {
             <img
               src={user.avatar}
               alt="Profile"
-              className="w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12 rounded-full border-2 lg:border-4 border-purple-300 object-cover hover:scale-105 duration-300"
+              className="w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12 rounded-full border-2 lg:border-4 border-purple-300   object-cover hover:scale-105 duration-300"
             />
           ) : (
-            <div className="w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12 rounded-full border-2 lg:border-4 border-purple-300 bg-purple-100 flex items-center justify-center hover:scale-105 duration-300">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12 rounded-full border-2 lg:border-4 border-purple-300 bg-purple-100  flex items-center justify-center hover:scale-105 duration-300 theme-card">
               <User className="w-5 h-5 lg:w-6 lg:h-6 text-purple-600" />
             </div>
           )}
@@ -124,27 +166,29 @@ const handleSaveAvatar = async () => {
     {showAvatarModal && (
         <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-[999]">
 
-          <div className="bg-white rounded-3xl w-[95%] max-w-md p-6 shadow-2xl">
+          <div className="bg-white duration-300 rounded-3xl w-[95%] max-w-md p-6 shadow-2xl theme-card">
 
             <div className="flex justify-between items-center">
 
-              <h2 className="text-2xl font-bold">
+              <h2 className="text-2xl font-bold text-gray-800 theme-text">
                 Change Avatar
               </h2>
 
               <button
                 onClick={() => setShowAvatarModal(false)}
+                className="w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 duration-300 flex items-center justify-center theme-danger"
+
               >
                 <X />
               </button>
 
             </div>
 
-            <p className="mt-3 text-gray-500">
+            <p className="mt-3 text-gray-500 theme-text">
               Choose your favourite avatar.
             </p>
 
-            <div className="grid grid-cols-4 gap-4 mt-6">
+            <div className="grid grid-cols-4 gap-4 mt-6 theme">
 
               {avatars.map((avatar, index) => (
 
@@ -155,8 +199,8 @@ const handleSaveAvatar = async () => {
 
                   ${
                     selectedAvatar === avatar.url
-                      ? "border-purple-600 bg-purple-50 scale-105"
-                      : "border-gray-200 hover:border-purple-300"
+                      ? "border-purple-600 bg-purple-50  scale-105"
+                      : "border-gray-200  hover:border-purple-300"
                   }`}
                 >
 
@@ -166,7 +210,7 @@ const handleSaveAvatar = async () => {
                     className="w-16 h-16 rounded-full mx-auto"
                   />
 
-                  <p className="text-xs mt-2 font-medium">
+                  <p className="text-xs mt-2 font-medium text-gray-800 theme-text-light ">
                     {avatar.name}
                   </p>
 

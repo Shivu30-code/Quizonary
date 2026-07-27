@@ -175,7 +175,7 @@ const rules = [
 
 const RulesSection = () => {
   return (
-    <section className="relative overflow-hidden bg-white rounded-3xl border border-purple-200 shadow-xl">
+    <section className="relative overflow-hidden bg-white rounded-3xl border border-purple-200 shadow-xl theme-card">
 
       {/* Background Image */}
       <img
@@ -213,11 +213,11 @@ z-0
 
         <div className="mb-8">
 
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-purple-700">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-purple-700 theme-text">
             RULES
           </h2>
 
-          <p className="text-gray-500 mt-1">
+          <p className="text-gray-500 mt-1 theme-text-light">
             Read carefully before playing
           </p>
 
@@ -243,11 +243,11 @@ z-0
 
                 <div>
 
-                  <h3 className="font-bold text-gray-800">
+                  <h3 className="font-bold text-gray-800 theme-text">
                     {rule.title}
                   </h3>
 
-                  <p className="text-sm text-gray-600 leading-6 mt-1">
+                  <p className="text-sm text-gray-600 leading-6 mt-1 theme-text-light">
                     {rule.desc}
                   </p>
 
@@ -275,11 +275,11 @@ z-0
 
                 <div>
 
-                  <h3 className="font-bold text-gray-800">
+                  <h3 className="font-bold text-gray-800 theme-text">
                     {rule.title}
                   </h3>
 
-                  <p className="text-sm text-gray-600 leading-6 mt-1">
+                  <p className="text-sm text-gray-600 leading-6 mt-1 theme-text-light">
                     {rule.desc}
                   </p>
 

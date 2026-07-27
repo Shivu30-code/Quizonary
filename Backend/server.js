@@ -6,6 +6,7 @@ import authRoutes from "./routes/authRoutes.js";
 import helmet from "helmet";
 import compression from "compression";
 import rateLimit from "express-rate-limit";
+import quizRoutes from "./routes/quizRoutes.js";
 
 
 dotenv.config();
@@ -40,8 +41,8 @@ app.use((req, res, next) => {
   next();
 });
 const limiter = rateLimit({
-    windowMs: 60 * 1000,
-    max: 100,
+  windowMs: 60 * 1000,
+  max: 100,
 });
 
 app.use("/api/auth", limiter);
@@ -62,6 +63,7 @@ app.post("/test", (req, res) => {
   res.json(req.body);
 });
 app.use("/api/auth", authRoutes);
+app.use("/api/quiz", quizRoutes);
 
 const PORT = process.env.PORT || 5000;
 

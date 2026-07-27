@@ -38,7 +38,7 @@ const NoticeSection = () => {
   return (
     <div 
       // className="bg-white rounded-3xl shadow-xl border border-purple-100 p-6">
-      className="bg-white rounded-3xl shadow-xl border border-purple-100 p-4 sm:p-6">
+      className="bg-white rounded-3xl shadow-xl border border-purple-100 p-4 sm:p-6 theme-card theme-border">
 
       <div className="flex items-center gap-3 mb-5">
 
@@ -71,37 +71,7 @@ const NoticeSection = () => {
             className="border border-purple-100 rounded-2xl p-4 hover:bg-purple-50 transition-all duration-300"
           >
 
-            {/* <h3
-            //  className="font-semibold text-gray-800 flex items-center gap-2"
-              className="font-semibold text-sm sm:text-base text-gray-800 flex items-center gap-2"
-            >
 
-              <Bell size={18} className="text-purple-600" />
-
-              {item.title}
-
-            </h3>
-
-            <div 
-            // className="flex gap-5 mt-3 text-sm text-gray-500">
-              className="flex flex-col sm:flex-row gap-2 sm:gap-5 mt-3 text-xs sm:text-sm text-gray-500">
-              <span className="flex items-center gap-2">
-
-                <CalendarDays size={16} />
-
-                {item.date}
-
-              </span>
-
-              <span className="flex items-center gap-2">
-
-                <Clock3 size={16} />
-
-                {item.time}
-
-              </span>
-
-            </div> */}
             <div className="flex items-start gap-3">
 
   <div className="bg-purple-100 p-2 rounded-xl mt-1">
@@ -109,11 +79,11 @@ const NoticeSection = () => {
   </div>
 
   <div>
-    <h3 className="font-semibold text-sm sm:text-base text-gray-800">
+    <h3 className="font-semibold text-sm sm:text-base text-gray-800 theme-text">
       {item.title}
     </h3>
 
-    <p className="mt-2 text-xs sm:text-sm text-gray-500 leading-6">
+    <p className="mt-2 text-xs sm:text-sm text-gray-500 leading-6 theme-text-light">
       {item.description}
     </p>
   </div>

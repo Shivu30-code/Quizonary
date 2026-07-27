@@ -10,26 +10,49 @@ import {
   LogOut,
   Menu,
   X,
+  Bolt
 } from "lucide-react";
 import { useNavigate,NavLink } from "react-router-dom";
+import{cardTheme,headingTheme,textTheme}from "../../utils/theme";
+import { useLanguage } from "../../context/LanguageContext";
+import { translations } from "../../translation/translation";
 
-const menus = [
-  { name: "Home", icon: House, path: "/home" },
-  { name: "Leaderboard", icon: Trophy, path: "/leaderboard" },
-  { name: "Notifications", icon: Bell, path: "/notifications" },
-  { name: "Quiz History", icon: History, path: "/quiz-history" },
-  { name: "Profile", icon: User, path: "/profile" },
-  { name: "Help & Support", icon: CircleHelp, path: "/help-support" },
-];
 
 const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+
   const navigate = useNavigate();
+
+  const { language } = useLanguage();
+
+  const t = translations[language];
+
+  const menus = [
+    { name: t.home, icon: House, path: "/home" },
+    { name: t.leaderboard, icon: Trophy, path: "/leaderboard" },
+    { name: t.notifications, icon: Bell, path: "/notifications" },
+    { name: t.quizHistory, icon: History, path: "/quiz-history" },
+    { name: t.profile, icon: User, path: "/profile" },
+    { name: t.helpSupport, icon: CircleHelp, path: "/help-support" },
+    { name: t.settings, icon: Bolt, path: "/settings" },
+  ];
+  const handleLogout = () => {
+    const answer = window.confirm(
+        "Are you sure you want to logout?"
+    );
+
+    if (answer) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        localStorage.clear();
+        sessionStorage.clear();
+        navigate("/login"); 
+    }
+  };  
+  
 
   return (
     <>
-
-
       <button
         onClick={() => setIsOpen(true)}
         className="lg:hidden fixed top-6 left-7 z-[60] bg-gradient-to-r from-purple-600 to-pink-500 text-white p-2.5 rounded-xl shadow-xl active:scale-95 transition"
@@ -50,9 +73,9 @@ const Sidebar = () => {
         className={`
         fixed top-0 left-0 z-50
         h-screen w-[85%] max-w-[280px] lg:w-72
-        bg-white shadow-2xl border-r border-purple-100
+        bg-white text-gray-800 dark:text-white shadow-2xl border-r border-purple-100
         flex flex-col
-        transition-transform duration-300
+        transition-transform duration-300 theme-card
         ${
           isOpen
             ? "translate-x-0"
@@ -65,7 +88,7 @@ const Sidebar = () => {
         <div className="lg:hidden flex justify-end p-4">
           <button
             onClick={() => setIsOpen(false)}
-            className="text-gray-700 cursor-pointer"
+            className="text-gray-700 theme-text rounded-full cursor-pointer theme-danger"
           >
             <X size={28} />
           </button>
@@ -92,7 +115,7 @@ const Sidebar = () => {
         `group w-full flex items-center gap-3 px-3 sm:px-4 py-3 sm:py-4 rounded-2xl mb-3 transition-all duration-300 ${
           isActive
             ? "bg-gradient-to-r from-purple-600 to-pink-500 text-white shadow-lg"
-            : "text-gray-700 hover:bg-purple-50 hover:translate-x-1"
+            : "text-gray-500 dark:text-gray-800 hover:bg-purple-50 dark:hover:bg-[#111827] hover:translate-x-1 theme-text"
         }`
       }
     >
@@ -110,10 +133,12 @@ const Sidebar = () => {
 
             <div className="border-t p-4 sm:p-5">
           <button 
-            className="w-full flex items-center justify-center gap-2 sm:gap-3 bg-red-50 hover:bg-red-100 text-red-500 rounded-2xl py-3 text-sm sm:text-base font-medium transition-all duration-300"
-        >
+            onClick={handleLogout}
+            className="w-full flex items-center justify-center gap-2 sm:gap-3 bg-red-50 dark:bg-red-950 dark:hover:bg-red-900  
+            hover:bg-red-100 text-red-500 rounded-2xl py-3 text-sm sm:text-base font-medium transition-all duration-300 theme-text"
+          >
             <LogOut size={20} />
-            Logout
+            {t.logout}
           </button>
         </div>
       </aside>

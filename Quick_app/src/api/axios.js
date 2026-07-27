@@ -7,4 +7,7 @@ const API = axios.create({
   },
 });
 
+export const submitQuiz = (data) => {
+  return API.post("/quiz/submit", data);
+};
 export default API;
