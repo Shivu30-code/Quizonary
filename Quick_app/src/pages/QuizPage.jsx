@@ -24,7 +24,7 @@ import { saveQuizStartTime,getStartTime,clearQuizStartTime } from "../utils/star
 import { saveQuizSession,getQuizSession,clearQuizSession}from "../utils/quizSession";
 import {saveQuizHistory}from "../utils/quizHistory";
 import {updateLeaderboard,getLeaderboard}from "../utils/leaderboard";
-import {addNotification}from "../utils/notificationStorage";
+import {addNotification}from "../utils/NotificationStorage";
 import { useLocation } from "react-router-dom";
 // import API from "../api/axios";
 import { submitQuiz } from "../api/axios";
