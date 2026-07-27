@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Settings as SettingsIcon,Shield,Lock,Languages,ChevronRight,
         Bell, Moon,Trash2,AlertTriangle, Eye,EyeOff} from "lucide-react";
 import {saveLanguage,getLanguage,saveDarkMode,getDarkMode,saveNotificationStatus,
-getNotificationStatus}from "../utils/settingsStorage";
+getNotificationStatus}from "../utils/SettingsStorage";
 import {applyDarkMode} from "../utils/darkMode";
 import API from "../api/axios";
 import { useLanguage } from "../context/LanguageContext";
