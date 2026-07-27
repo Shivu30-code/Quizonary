@@ -12,7 +12,7 @@ import unicorn from "../../assets/avatars/unicorn.jpg";
 import {cardTheme,headingTheme,textTheme}from "../../utils/theme";
 import { useLanguage } from "../../context/LanguageContext";
 import { translations } from "../../translation/translation";
-import { getNotifications } from "../../utils/notificationStorage";
+import { getNotifications } from "../../utils/NotificationStorage";
 import { useNavigate } from "react-router-dom";
 const Navbar = () => {
   const [showAvatarModal, setShowAvatarModal] = useState(false);
