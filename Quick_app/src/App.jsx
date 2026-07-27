@@ -22,7 +22,7 @@ import QuizPage from "./pages/QuizPage";
 import QuizSubmitted from "./pages/QuizSubmitted";
 import QuizHistory from "./pages/QuizHistory";
 import QuizHistoryDetails from "./pages/QuizHistoryDetails";
-import {getDarkMode}from "./utils/settingsStorage";
+import {getDarkMode}from "./utils/SettingsStorage";
 import ProtectedRoute from "./component/ProtectedRoute";
 import PublicRoute from "./component/PublicRoute";
 import Notification from "./pages/Notification";
