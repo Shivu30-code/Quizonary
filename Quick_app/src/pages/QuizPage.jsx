@@ -505,7 +505,7 @@ const QuizPage = () => {
     const score=
     correct*10;
 
-    const totalTime=900;
+    const totalTime=300;
 
     const timeTaken=
     totalTime-timeLeft;
