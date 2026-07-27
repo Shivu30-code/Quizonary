@@ -1,7 +1,8 @@
 import React from "react";
 import { Bell} from "lucide-react";
 
-import {getNotifications} from "../utils/NotificationStorage";
+// import {getNotifications} from "../utils/NotificationStorage";
+import { getNotifications } from "../utils/notificationStorage";
 
 const Notification = () => {
     const handleMarkAllRead = () => {
