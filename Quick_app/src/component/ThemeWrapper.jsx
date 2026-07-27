@@ -1,5 +1,5 @@
 import React from "react";
-import { getDarkMode } from "../utils/settingsStorage";
+import { getDarkMode } from "../utils/SettingsStorage";
 
 const ThemeWrapper = ({ children }) => {
 
