@@ -1,4 +1,4 @@
-import { getDarkMode } from "./settingsStorage";
+import { getDarkMode } from "./SettingsStorage";
 
 
 export const applyDarkMode = () => {
