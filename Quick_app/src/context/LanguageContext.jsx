@@ -10,7 +10,7 @@ import {
 getLanguage,
 saveLanguage
 
-} from "../utils/settingsStorage";
+} from "../utils/SettingsStorage";
 
 
 const LanguageContext=createContext();
