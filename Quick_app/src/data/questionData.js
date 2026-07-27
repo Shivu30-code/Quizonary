@@ -42,7 +42,7 @@ const questionData = [
 
     {
         id: 6,
-        question: "If 5 + 3 = 28 and 6 + 4 = 40, then 7 + 5 = ?",
+        question: "If 5 + 3 = 24 and 6 + 4 = 40, then 7 + 5 = ?",
         options: ["60", "70", "72", "84"],
         correctAnswer: "60",
         marks: 1,
@@ -112,10 +112,10 @@ const questionData = [
     },
 
     {
-        id: 15,
-        question: "Find the next number: 5, 10, 15, 20, ?",
-        options: ["22", "24", "25", "30"],
-        correctAnswer: "25",
+        id: 39,
+        question: "You see me once in June, twice in November, and not at all in May. What am I?",
+        options: ["The letter E", "The letter N", "The letter O", "The letter V"],
+        correctAnswer: "The letter E",
         marks: 1,
     },
 
